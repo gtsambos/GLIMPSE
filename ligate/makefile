@@ -90,18 +90,18 @@ endif
 #CONDITIONAL PATH DEFINITON
 
 system: DYN_LIBS=-lz -lpthread -lbz2 -llzma
-system: HTSSRC=/home/srubinac/git
-system: HTSLIB_INC=$(HTSSRC)/htslib-1.17
-system: HTSLIB_LIB=$(HTSSRC)/htslib-1.17/libhts.a
+system: HTSSRC=/net/harris/vol1/home/gtsambos/mambaforge-pypy3/envs/ceph-ped
+system: HTSLIB_INC=$(HTSSRC)/include/
+system: HTSLIB_LIB=$(HTSSRC)/lib/libhts.a
 system: BOOST_INC=/usr/include
 system: BOOST_LIB_IO=/usr/lib/x86_64-linux-gnu/libboost_iostreams.a
 system: BOOST_LIB_PO=/usr/lib/x86_64-linux-gnu/libboost_program_options.a
 system: BOOST_LIB_SE=/usr/lib/x86_64-linux-gnu/libboost_serialization.a
 system: $(BFILE)
 
-desktop: HTSSRC=/home/srubinac/git
-desktop: HTSLIB_INC=$(HTSSRC)/htslib-1.17
-desktop: HTSLIB_LIB=$(HTSSRC)/htslib-1.17/libhts.a
+desktop: HTSSRC=/net/harris/vol1/home/gtsambos/mambaforge-pypy3/envs/ceph-ped
+desktop: HTSLIB_INC=$(HTSSRC)/include/
+desktop: HTSLIB_LIB=$(HTSSRC)/lib/libhts.a
 desktop: BOOST_INC=/usr/include
 desktop: BOOST_LIB_IO=/usr/lib/x86_64-linux-gnu/libboost_iostreams.a
 desktop: BOOST_LIB_PO=/usr/lib/x86_64-linux-gnu/libboost_program_options.a
@@ -150,7 +150,7 @@ static_exe: $(EXEFILE)
 all: desktop
 	
 $(BFILE): $(OFILE)
-	$(CXX) $(LDFLAG) $^ $(HTSLIB_LIB) $(BOOST_LIB_IO) $(BOOST_LIB_PO) $(BOOST_LIB_SE) $(BGEN_LIB) -o $@ $(DYN_LIBS)
+	$(CXX) $(LDFLAG) $^ $(HTSLIB_LIB) $(BOOST_LIB_IO) $(BOOST_LIB_PO) $(BOOST_LIB_SE) $(BGEN_LIB) -o $@ $(DYN_LIBS) -ldeflate
 
 $(EXEFILE): $(OFILE)
 	$(CXX) $(LDFLAG) -static -static-libgcc -static-libstdc++ -pthread -o $(EXEFILE) $^ $(HTSLIB_LIB) $(BOOST_LIB_IO) $(BOOST_LIB_PO) $(BOOST_LIB_SE) -Wl,-Bstatic $(DYN_LIBS)
